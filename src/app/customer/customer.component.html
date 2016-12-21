@@ -1,0 +1,74 @@
+<form class="reqform bg-faded rounded clearfix margintop col-lg-6 offset-lg-3 col-md-10 offset-md-1"
+  novalidate #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm.value)">
+  <fieldset ngModelGroup="customer">
+    <div class="form-group clearfix">
+      <label for="name" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
+        Your Name
+      </label>
+      <div class="col-sm-9 col-md-9 col-lg-9">
+        <input required type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Insert your fullname">
+      </div>
+    </div>
+    <div class="form-group clearfix">
+      <label for="email" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
+        Your Email
+      </label>
+      <div class="col-sm-9 col-md-9 col-lg-9">
+        <input required type="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Insert your email">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset ngModelGroup="vehicle">
+    <div class="form-group col-md-6 col-lg-6">
+      <label for="make">Make</label>
+      <select required class="form-control" name="make" [(ngModel)]="make">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6 col-lg-6">
+      <label for="model">Model</label>
+      <select required class="form-control" name="model" [(ngModel)]="model">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6 col-lg-6">
+      <label for="year">Year</label>
+      <select required class="form-control" name="year" [(ngModel)]="year">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6 col-lg-6">
+      <label for="type">Fuel Type</label>
+      <select required class="form-control" name="fuel" [(ngModel)]="fuel">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div><br>
+    <div class="form-group clearfix">
+      <label for="name" class="col-sm-4 col-md-3 col-lg-3 form-control-label formlabel">
+        Vehicle Plate
+      </label>
+      <div class="col-sm-8 col-md-9 col-lg-9">
+        <input required type="text" name="plate" [(ngModel)]="plate" class="form-control" placeholder="Insert your plate">
+      </div>
+    </div>
+  </fieldset>
+  <div class="container paddingtop">
+    <button [disabled]="!customerForm.valid" type="submit" class="btn btn-primary float-xs-right">Send Request</button>
+  </div>
+</form>
+  {{ customerForm.value | json }}
+<br />
+<br />
+<br />
