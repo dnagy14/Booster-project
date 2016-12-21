@@ -5,7 +5,7 @@ import { NotificationService } from '../Shared/notification.service';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.sass']
+  styleUrls: ['./customer.component.sass'],
 })
 export class CustomerComponent implements OnInit {
 
@@ -16,6 +16,10 @@ export class CustomerComponent implements OnInit {
   year;
   fuel;
   plate;
+  status;
+  vehicles = [];
+  uniqueSet;
+  uniqueVehicle = [];
 
   constructor(
     private apiservice: ApiService,
@@ -23,10 +27,40 @@ export class CustomerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getVehicles();
+    this.status = 'active';
+
+  }
+
+  getVehicles() {
+    this.apiservice.getVehicles().subscribe(
+      (res) => {
+        console.log('Vehicles imported!');
+        this.vehicles = res;
+      }, (err) => {
+        console.error(err);
+      }
+    );
   }
 
   onSubmit(value) {
-    this.apiservice.sendRequest(value);
+    this.apiservice.sendRequest(value).subscribe(
+      (res) => {
+        console.log('Request sent!');
+        console.log(res);
+      }, (err) => {
+        console.error(err);
+      }
+    );
     this.notificationService.newAlert('info', 'New request');
   }
+
+  uniqueMake() {
+    return (new Set(this.vehicles.map(item => item.make)));
+  }
+
+  getModels(make) {
+    return (new Set(make.map(item => item.model)));
+  }
+
 }

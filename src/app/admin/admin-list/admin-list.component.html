@@ -1,46 +1,41 @@
-<table class="table table-hover scroll">
-  <thead class="thead-default">
-    <tr>
-      <th class="text-xs-center">&#x2713;</th>
-      <th>#</th>
-      <th>Name</th>
-      <th>Make</th>
-      <th>Model</th>
-      <th>Year</th>
-      <th>Fuel</th>
-      <th>Plate</th>
-      <th>Email</th>
-      <th class="text-xs-center">Cancel</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="text-xs-center">
-        <input type="checkbox" unchecked>
-      </td>
-      <td>1</td>
-      <td>Ime i prezime</td>
-      <td>Ford</td>
-      <td>Mustang</td>
-      <td>1986</td>
-      <td>Premium</td>
-      <td>ZG-1000-HR</td>
-      <td>email@email.com</td>
-      <td class="text-xs-center"><button type="button" class="btn btn-sm btn-danger">X</button></td>
-    </tr>
-    <tr>
-      <td class="text-xs-center">
-        <input type="checkbox" unchecked>
-      </td>
-      <td>1</td>
-      <td>Ime i prezime</td>
-      <td>Ford</td>
-      <td>Mustang</td>
-      <td>1986</td>
-      <td>Premium</td>
-      <td>ZG-1000-HR</td>
-      <td>email@email.com</td>
-      <td class="text-xs-center"><button type="button" class="btn btn-sm btn-danger">X</button></td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <table class="table table-hover tablescroll">
+    <thead class="thead-default">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>Fuel</th>
+        <th>Plate</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th class="text-xs-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <td>{{request.id}}</td>
+        <td>{{request.name}}</td>
+        <td>{{request.make}}</td>
+        <td>{{request.model}}</td>
+        <td>{{request.year}}</td>
+        <td>{{request.fuel}}</td>
+        <td>{{request.plate}}</td>
+        <td>{{request.email}}</td>
+        <td>
+          <span class="tag tag-{{request.status}}">{{request.status}}</span>
+        </td>
+        <td>
+          <div class="row text-xs-center">
+            <button type="button" class="btn btn-sm btn-danger">X</button>
+            <button type="button" class="btn btn-sm btn-success">&#x2713;</button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+    </tbody>
+  </table>
+
+</div>

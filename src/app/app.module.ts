@@ -18,12 +18,11 @@ import { AdminModule } from './admin/admin.module';
 import { NotificationService }  from './Shared/notification.service';
 import { ApiService } from './Shared/api.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    AlertComponent
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

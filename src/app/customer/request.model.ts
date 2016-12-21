@@ -6,6 +6,7 @@ export class Request {
   year: number;
   fuel: string;
   plate: string;
+  status: string;
 
   constructor(
     name?: string,
@@ -14,7 +15,8 @@ export class Request {
     model?: string,
     year?: number,
     fuel?: string,
-    plate?: string
+    plate?: string,
+    status?: string
   ) {
     this.name = name;
     this.email = email;
@@ -23,5 +25,6 @@ export class Request {
     this.year = year;
     this.fuel = fuel;
     this.plate = plate;
+    this.status = 'active';
   }
 }
