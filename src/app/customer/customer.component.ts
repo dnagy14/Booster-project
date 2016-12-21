@@ -20,6 +20,8 @@ export class CustomerComponent implements OnInit {
   vehicles = [];
   uniqueSet;
   uniqueVehicle = [];
+  models = {};
+  years = [];
 
   constructor(
     private apiservice: ApiService,
@@ -37,6 +39,7 @@ export class CustomerComponent implements OnInit {
       (res) => {
         console.log('Vehicles imported!');
         this.vehicles = res;
+        console.log(this.getModels('FIAT'));
       }, (err) => {
         console.error(err);
       }
@@ -60,7 +63,6 @@ export class CustomerComponent implements OnInit {
   }
 
   getModels(make) {
-    return (new Set(make.map(item => item.model)));
+      // this.models = this.vehicles.filter(function(v) {return this.vehicles.v === make; });
+    }
   }
-
-}
