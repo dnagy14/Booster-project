@@ -1,11 +1,15 @@
-<form class="reqform bg-faded rounded clearfix margintop col-lg-6 offset-lg-3 col-md-10 offset-md-1"
-  novalidate #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm.value)">
+
+<form class="reqform bg-faded rounded clearfix margintop col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-xl-6 offset-xl-3"
+  [formGroup]="customerForm" (ngSubmit)="onSubmit(customerForm.value)">
+    <div class="container col-xs-12 page-header text-xs-center paddingbottom">
+      <h4>Enter your fuel request</h4>
+    </div>
     <div class="form-group clearfix">
       <label for="name" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
         First Name
       </label>
       <div class="col-sm-9 col-md-9 col-lg-9">
-        <input required type="text" name="customerFirstName" [(ngModel)]="customerFirstName" class="form-control" placeholder="Insert your firstname">
+        <input required type="text" name="customerFirstName" formControlName="customerFirstName" class="form-control" placeholder="Enter your firstname">
       </div>
     </div>
     <div class="form-group clearfix">
@@ -13,41 +17,44 @@
         Last Name
       </label>
       <div class="col-sm-9 col-md-9 col-lg-9">
-        <input required type="text" name="customerLastName" [(ngModel)]="customerLastName" class="form-control" placeholder="Insert your lastname">
+        <input required type="text" name="customerLastName" formControlName="customerLastName" class="form-control" placeholder="Enter your lastname">
       </div>
     </div>
     <div class="form-group clearfix">
       <label for="email" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
         Email
       </label>
-      <div class="col-sm-9 col-md-9 col-lg-9">
+      <div class="col-sm-9 col-md-9 col-lg-9"
+        [ngClass]="!customerForm.controls['email'].hasError('pattern') || customerForm.get('email').touched || customerForm.get('email').pristine ? '' : 'has-danger'"
+      >
         <input required type="email" name="email"
-          [(ngModel)]="email" class="form-control"
-          placeholder="Insert your email"
-          pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+          formControlName="email" class="form-control"
+          placeholder="Enter your email"
+          >
+        <p *ngIf="customerForm.controls['email'].hasError('pattern')">email</p>
       </div>
     </div>
     <div class="form-group col-md-6 col-lg-6 clearfix">
       <label for="make">Make</label>
-      <select required class="form-control" name="vehicleMake" [ngModel]="vehicleMake" (change)="selectModels($event.target.value)">
+      <select required class="form-control" name="vehicleMake" formControlName="vehicleMake" (change)="selectModels($event.target.value)">
         <option [ngValue]="make" *ngFor="let make of uniqueMake()">{{make}}</option>
       </select>
     </div>
     <div class="form-group col-md-6 col-lg-6 clearfix">
       <label for="model">Model</label>
-      <select required class="form-control" name="vehicleModel" [(ngModel)]="vehicleModel" (change)="selectYears($event.target.value)">
+      <select required class="form-control" name="vehicleModel" formControlName="vehicleModel" (change)="selectYears($event.target.value)">
         <option [ngValue]="model" *ngFor="let model of uniqueModels()">{{model}}</option>
       </select>
     </div>
-    <div class="form-group col-md-6 col-lg-6 clearfix">
+    <div class="form-group col-md-6 col-lg-6 clearfix marginbottom">
       <label for="year">Year</label>
-      <select required class="form-control" name="vehicleYear" [(ngModel)]="vehicleYear">
+      <select required class="form-control " name="vehicleYear" formControlName="vehicleYear">
         <option [ngValue]="vehicle.year" *ngFor="let vehicle of years">{{vehicle.year}}</option>
       </select>
     </div>
-    <div class="form-group col-md-6 col-lg-6 clearfix">
+    <div class="form-group col-md-6 col-lg-6 clearfix marginbottom">
       <label for="type">Fuel Type</label>
-      <select required class="form-control" name="fuelType" #fuelType ngModel>
+      <select required class="form-control" name="fuelType" formControlName="fuelType">
         <option value="Regular">Regular</option>
         <option value="Premium">Premium</option>
       </select>
@@ -57,13 +64,12 @@
         Vehicle Plate
       </label>
       <div class="col-sm-8 col-md-9 col-lg-9">
-        <input required type="text" name="vehiclePlate" #vehiclePlate ngModel class="form-control" placeholder="Insert your plate">
-        <input type="hidden" name="requestStatus" [(ngModel)]="requestStatus"/>
+        <input required type="text" name="vehiclePlate" formControlName="vehiclePlate" class="form-control" placeholder="Enter your vehicle plate">
+        <input type="hidden" name="requestStatus" formControlName="requestStatus"/>
       </div>
-
     </div>
   <div class="container paddingtop">
-    <button [disabled]="!customerForm.valid" type="submit" class="btn btn-primary float-xs-right">Send Request</button>
+    <button [disabled]="customerForm.invalid" type="submit" class="btn btn-primary float-xs-right col-xs-12 col-md-4">Send Request</button>
   </div>
 </form>
 <br />

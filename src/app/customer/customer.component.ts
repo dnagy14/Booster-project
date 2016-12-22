@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../Shared/api.service';
 import { NotificationService } from '../Shared/notification.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer',
@@ -31,8 +32,22 @@ export class CustomerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.customerForm = new FormGroup({
+      customerFirstName: new FormControl('', [Validators.required]),
+      customerLastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required,
+        Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)
+      ]),
+      vehicleMake: new FormControl('', [Validators.required]),
+      vehicleModel: new FormControl('', [Validators.required]),
+      vehicleYear: new FormControl('', [Validators.required]),
+      fuelType: new FormControl('', [Validators.required]),
+      requestStatus: new FormControl('ACTIVE', [Validators.required]),
+      vehiclePlate: new FormControl('', [Validators.required])
+    });
+
     this.getVehicles();
-    this.requestStatus = 'ACTIVE';
   }
 
   getVehicles() {

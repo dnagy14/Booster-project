@@ -9,7 +9,7 @@ export const appRoutes: Routes = [
 
   { path: '', component: LayoutComponent,
       children: [
-        { path: '', redirectTo: 'customer' },
+        { path: '', redirectTo: 'customer', pathMatch: 'full' },
         { path: 'customer', component: CustomerComponent },
         { path: 'admin', component: AdminComponent },
       ]
