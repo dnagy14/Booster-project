@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../Shared/api.service';
+import { NotificationService } from '../../Shared/notification.service';
+import { AdminFilterComponent } from '../admin-filter/admin-filter.component';
+import { FilterListService } from '../../Shared/filter-list.service';
 
 @Component({
   selector: 'app-admin-list',
@@ -8,9 +11,13 @@ import { ApiService } from '../../Shared/api.service';
 })
 export class AdminListComponent implements OnInit {
 
+  searchValue;
   requests = [];
 
-  constructor(private apiService: ApiService) { }
+  constructor( private apiService: ApiService,
+     private notificationService: NotificationService,
+     private filterlistService: FilterListService
+   ) { }
 
   ngOnInit() {
     this.getData();
@@ -19,7 +26,6 @@ export class AdminListComponent implements OnInit {
   getData() {
     this.apiService.getRequests().subscribe(
       (res) => {
-        console.log('Gotcha!');
         this.requests = res;
       }, (err) => {
         console.error(err);
@@ -27,15 +33,30 @@ export class AdminListComponent implements OnInit {
     );
   }
 
-  /*update(id, status) {
-    this.apiService.update(id, status).subscribe(
+  updateStatus(request, status) {
+    request.requestStatus = status;
+    this.apiService.update(request.id, request).subscribe(
       (res) => {
-        console.log('Updated!');
-        console.log(res);
+        // console.log(res);
       }, (err) => {
-        console.error(err);
+        //  console.error(err);
       }
     );
-  }*/
+    switch (status) {
+      case 'COMPLETED':
+        this.notificationService.newAlert('success', 'Request completed');
+        break;
+      default:
+        this.notificationService.newAlert('danger', 'Request cancelled');
+    }
+  }
+
+  getSearchValue() {
+    return this.filterlistService.getInputValue();
+  }
+
+  getSelectValue() {
+    return this.filterlistService.getSelectValue();
+  }
 
 }

@@ -2,41 +2,52 @@
   novalidate #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm.value)">
     <div class="form-group clearfix">
       <label for="name" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
-        Your Name
+        First Name
       </label>
       <div class="col-sm-9 col-md-9 col-lg-9">
-        <input required type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Insert your fullname">
+        <input required type="text" name="customerFirstName" [(ngModel)]="customerFirstName" class="form-control" placeholder="Insert your firstname">
+      </div>
+    </div>
+    <div class="form-group clearfix">
+      <label for="name" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
+        Last Name
+      </label>
+      <div class="col-sm-9 col-md-9 col-lg-9">
+        <input required type="text" name="customerLastName" [(ngModel)]="customerLastName" class="form-control" placeholder="Insert your lastname">
       </div>
     </div>
     <div class="form-group clearfix">
       <label for="email" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
-        Your Email
+        Email
       </label>
       <div class="col-sm-9 col-md-9 col-lg-9">
-        <input required type="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Insert your email">
+        <input required type="email" name="email"
+          [(ngModel)]="email" class="form-control"
+          placeholder="Insert your email"
+          pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
       </div>
     </div>
     <div class="form-group col-md-6 col-lg-6 clearfix">
       <label for="make">Make</label>
-      <select required class="form-control" name="make" [ngModel]="make">
+      <select required class="form-control" name="vehicleMake" [ngModel]="vehicleMake" (change)="selectModels($event.target.value)">
         <option [ngValue]="make" *ngFor="let make of uniqueMake()">{{make}}</option>
       </select>
     </div>
     <div class="form-group col-md-6 col-lg-6 clearfix">
       <label for="model">Model</label>
-      <select required class="form-control" name="year" [(ngModel)]="model">
-        <option [ngValue]="vehicle.model" *ngFor="let vehicle of vehicles">{{vehicle.model}}</option>
+      <select required class="form-control" name="vehicleModel" [(ngModel)]="vehicleModel" (change)="selectYears($event.target.value)">
+        <option [ngValue]="model" *ngFor="let model of uniqueModels()">{{model}}</option>
       </select>
     </div>
     <div class="form-group col-md-6 col-lg-6 clearfix">
       <label for="year">Year</label>
-      <select required class="form-control" name="year" [(ngModel)]="year">
-        <option [ngValue]="vehicle.year" *ngFor="let vehicle of vehicles">{{vehicle.year}}</option>
+      <select required class="form-control" name="vehicleYear" [(ngModel)]="vehicleYear">
+        <option [ngValue]="vehicle.year" *ngFor="let vehicle of years">{{vehicle.year}}</option>
       </select>
     </div>
     <div class="form-group col-md-6 col-lg-6 clearfix">
       <label for="type">Fuel Type</label>
-      <select required class="form-control" name="fuel" [(ngModel)]="fuel">
+      <select required class="form-control" name="fuelType" #fuelType ngModel>
         <option value="Regular">Regular</option>
         <option value="Premium">Premium</option>
       </select>
@@ -46,17 +57,15 @@
         Vehicle Plate
       </label>
       <div class="col-sm-8 col-md-9 col-lg-9">
-        <input required type="text" name="plate" [(ngModel)]="plate" class="form-control" placeholder="Insert your plate">
-        <input type="hidden" name="status" [(ngModel)]="status"/>
+        <input required type="text" name="vehiclePlate" #vehiclePlate ngModel class="form-control" placeholder="Insert your plate">
+        <input type="hidden" name="requestStatus" [(ngModel)]="requestStatus"/>
       </div>
 
     </div>
   <div class="container paddingtop">
     <button [disabled]="!customerForm.valid" type="submit" class="btn btn-primary float-xs-right">Send Request</button>
   </div>
-  {{ customerForm.value | json }}
 </form>
-
 <br />
 <br />
 <br />

@@ -9,19 +9,21 @@ import { NotificationService } from '../Shared/notification.service';
 })
 export class CustomerComponent implements OnInit {
 
-  name;
+  customerFirstName;
+  customerLastName;
   email;
-  make;
-  model;
-  year;
-  fuel;
-  plate;
-  status;
+  vehicleMake;
+  vehicleModel;
+  vehicleYear;
+  fuelType;
+  vehiclePlate;
+  requestStatus;
   vehicles = [];
   uniqueSet;
   uniqueVehicle = [];
-  models = {};
+  models = [];
   years = [];
+  customerForm;
 
   constructor(
     private apiservice: ApiService,
@@ -30,18 +32,16 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit() {
     this.getVehicles();
-    this.status = 'active';
-
+    this.requestStatus = 'ACTIVE';
   }
 
   getVehicles() {
     this.apiservice.getVehicles().subscribe(
       (res) => {
-        console.log('Vehicles imported!');
+        // console.log('Vehicles imported!');
         this.vehicles = res;
-        console.log(this.getModels('FIAT'));
       }, (err) => {
-        console.error(err);
+        // console.error(err);
       }
     );
   }
@@ -49,20 +49,35 @@ export class CustomerComponent implements OnInit {
   onSubmit(value) {
     this.apiservice.sendRequest(value).subscribe(
       (res) => {
-        console.log('Request sent!');
-        console.log(res);
+        // console.log('Request sent!');
+        //  console.log(res);
       }, (err) => {
-        console.error(err);
+        //  console.error(err);
       }
     );
-    this.notificationService.newAlert('info', 'New request');
+    this.customerForm.reset();
+    this.notificationService.newAlert('info', 'Request sent');
   }
 
   uniqueMake() {
     return (new Set(this.vehicles.map(item => item.make)));
   }
 
-  getModels(make) {
-      // this.models = this.vehicles.filter(function(v) {return this.vehicles.v === make; });
+  selectModels(x) {
+    this.models.length = 0;
+    this.models = (this.vehicles.filter(item => item.make === x.slice(3)));
+    this.uniqueModels();
+  }
+
+  uniqueModels() {
+    // console.log(new Set(this.models.map(item => item.model)));
+    return (new Set(this.models.map(item => item.model)));
+  }
+
+  selectYears(x) {
+    this.years.length = 0;
+    this.years = (this.vehicles.filter(item => item.model === x.slice(3)));
+    this.years.sort(function(a, b) { return b.year - a.year; });
     }
+
   }

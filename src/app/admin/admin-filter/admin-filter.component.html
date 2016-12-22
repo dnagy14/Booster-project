@@ -1,21 +1,21 @@
 <div class="margintop">
   <div class="col-xs-8 col-sm-8 col-md-6 col-lg-5 col-xl-4">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search by Plate">
-      <span class="input-group-btn">
-        <button class="btn btn-primary" type="button">
-          <div class="search">&#9906;</div>
-        </button>
-      </span>
+        <input type="text" class="form-control" name="searchInputValue" [(ngModel)]="searchInputValue" (keyup)="onKeyUp($event.target.value)" placeholder="Search by Plate">
+        <span class="input-group-btn" >
+          <button class="btn btn-primary" type="button">
+            <div class="search">&#9906;</div>
+          </button>
+        </span>
     </div>
   </div>
   <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 float-xs-right">
     <div class="form-group">
-      <select class="form-control" name="selectfilter">
-        <option value="">All</option>
-        <option value="">Pending</option>
-        <option value="">Completed</option>
-        <option value="">Cancelled</option>
+      <select class="form-control" name="selectfilter" (change)="filterListStatus($event.target.value)">
+        <option value="ALL">All</option>
+        <option value="ACTIVE">Active</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="CANCELLED">Cancelled</option>
       </select>
   </div>
 </div>

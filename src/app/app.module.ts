@@ -17,6 +17,7 @@ import { AdminModule } from './admin/admin.module';
 // services
 import { NotificationService }  from './Shared/notification.service';
 import { ApiService } from './Shared/api.service';
+import { FilterListService } from './Shared/filter-list.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { ApiService } from './Shared/api.service';
     AdminModule,
     NgbModule.forRoot()
   ],
-  providers: [NotificationService, ApiService],
+  providers: [NotificationService, ApiService, FilterListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

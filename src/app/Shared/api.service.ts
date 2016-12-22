@@ -22,8 +22,8 @@ export class ApiService {
       .map((res) => res.json());
   }
 
-  update(id, status) {
-    return this.http.put(`${this.url}/fuelRequests/${id}`, status)
+  update(id, request) {
+    return this.http.put(`${this.url}/fuelRequests/${id}`, request)
       .map((res) => res.json());
   }
 

@@ -4,6 +4,7 @@
       <tr>
         <th>#</th>
         <th>Name</th>
+        <th>Surename</th>
         <th>Make</th>
         <th>Model</th>
         <th>Year</th>
@@ -15,27 +16,28 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let request of requests">
+      <tr *ngFor="let request of requests | filterTable:getSearchValue() | filterSelectTable:getSelectValue()">
         <td>{{request.id}}</td>
-        <td>{{request.name}}</td>
-        <td>{{request.make}}</td>
-        <td>{{request.model}}</td>
-        <td>{{request.year}}</td>
-        <td>{{request.fuel}}</td>
-        <td>{{request.plate}}</td>
+        <td>{{request.customerFirstName}}</td>
+        <td>{{request.customerLastName}}</td>
+        <td>{{request.vehicleMake}}</td>
+        <td>{{request.vehicleModel}}</td>
+        <td>{{request.vehicleYear}}</td>
+        <td>{{request.fuelType}}</td>
+        <td>{{request.vehiclePlate}} | uppercase</td>
         <td>{{request.email}}</td>
         <td>
-          <span class="tag tag-{{request.status}}">{{request.status}}</span>
+          <span class="tag tag-{{request.requestStatus | lowercase}}">{{request.requestStatus | lowercase}}</span>
         </td>
         <td>
           <div class="row text-xs-center">
-            <button type="button" class="btn btn-sm btn-danger">X</button>
-            <button type="button" class="btn btn-sm btn-success">&#x2713;</button>
+            <button type="button"
+              (click)="updateStatus(request, 'CANCELLED')" class="btn btn-sm btn-danger">X</button>
+            <button type="button" (click)="updateStatus(request, 'COMPLETED')" class="btn btn-sm btn-success">&#x2713;</button>
           </div>
         </td>
       </tr>
       <tr>
     </tbody>
   </table>
-
 </div>
