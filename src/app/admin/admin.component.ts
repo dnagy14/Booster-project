@@ -13,7 +13,7 @@ import { FilterListService } from '../Shared/filter-list.service';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private filterlistService:FilterListService) { }
+  constructor(private filterlistService: FilterListService) { }
 
   ngOnInit() {
     this.filterlistService.sendInputValue('');
