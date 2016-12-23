@@ -34,8 +34,12 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
 
     this.customerForm = new FormGroup({
-      customerFirstName: new FormControl('', [Validators.required]),
-      customerLastName: new FormControl('', [Validators.required]),
+      customerFirstName: new FormControl('', [Validators.required,
+        Validators.pattern(/^[a-zA-ZŠĐČĆŽčšđžć]+$/)
+      ]),
+      customerLastName: new FormControl('', [Validators.required,
+        Validators.pattern(/^[a-zA-ZŠĐČĆŽčšđžć]+$/)
+      ]),
       email: new FormControl('', [Validators.required,
         Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)
       ]),
@@ -44,7 +48,9 @@ export class CustomerComponent implements OnInit {
       vehicleYear: new FormControl('', [Validators.required]),
       fuelType: new FormControl('', [Validators.required]),
       requestStatus: new FormControl('ACTIVE', [Validators.required]),
-      vehiclePlate: new FormControl('', [Validators.required])
+      vehiclePlate: new FormControl('', [Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9]+$/)
+      ])
     });
 
     this.getVehicles();
@@ -85,7 +91,6 @@ export class CustomerComponent implements OnInit {
   }
 
   uniqueModels() {
-    // console.log(new Set(this.models.map(item => item.model)));
     return (new Set(this.models.map(item => item.model)));
   }
 

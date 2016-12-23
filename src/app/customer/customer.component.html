@@ -8,16 +8,32 @@
       <label for="name" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
         First Name
       </label>
-      <div class="col-sm-9 col-md-9 col-lg-9">
+      <div class="col-sm-9 col-md-9 col-lg-9"
+        [ngClass]="customerForm.controls['customerFirstName'].hasError('required') && customerForm.get('customerFirstName').touched || customerForm.controls['customerFirstName'].hasError('pattern') ? 'has-danger' : ''"
+      >
         <input required type="text" name="customerFirstName" formControlName="customerFirstName" class="form-control" placeholder="Enter your firstname">
+        <small class="text-danger" *ngIf="customerForm.controls['customerFirstName'].hasError('required') && customerForm.get('customerFirstName').touched">
+          Please enter your first name
+        </small>
+        <small class="text-danger" *ngIf="customerForm.controls['customerFirstName'].hasError('pattern')">
+          Please use only letters
+        </small>
       </div>
     </div>
     <div class="form-group clearfix">
       <label for="name" class="col-sm-3 col-md-3 col-lg-3 form-control-label formlabel">
         Last Name
       </label>
-      <div class="col-sm-9 col-md-9 col-lg-9">
+      <div class="col-sm-9 col-md-9 col-lg-9"
+      [ngClass]="customerForm.controls['customerLastName'].hasError('required') && customerForm.get('customerLastName').touched || customerForm.controls['customerLastName'].hasError('pattern')? 'has-danger' : ''"
+      >
         <input required type="text" name="customerLastName" formControlName="customerLastName" class="form-control" placeholder="Enter your lastname">
+        <small class="text-danger" *ngIf="customerForm.controls['customerLastName'].hasError('required') && customerForm.get('customerLastName').touched">
+          Please enter your last name
+        </small>
+        <small class="text-danger" *ngIf="customerForm.controls['customerLastName'].hasError('pattern')">
+          Please use only letters
+        </small>
       </div>
     </div>
     <div class="form-group clearfix">
@@ -25,35 +41,57 @@
         Email
       </label>
       <div class="col-sm-9 col-md-9 col-lg-9"
-        [ngClass]="!customerForm.controls['email'].hasError('pattern') || customerForm.get('email').touched || customerForm.get('email').pristine ? '' : 'has-danger'"
+        [ngClass]="customerForm.controls['email'].hasError('required') && customerForm.get('email').touched || customerForm.controls['email'].hasError('pattern') ? 'has-danger' : ''"
       >
-        <input required type="email" name="email"
-          formControlName="email" class="form-control"
-          placeholder="Enter your email"
-          >
-        <p *ngIf="customerForm.controls['email'].hasError('pattern')">email</p>
+        <input required type="email" name="email" formControlName="email" class="form-control" placeholder="Enter your email">
+        <small class="text-danger" *ngIf="customerForm.controls['email'].hasError('required') && customerForm.get('email').touched">
+          Please enter your email adress
+        </small>
+        <small class="text-danger" *ngIf="customerForm.controls['email'].hasError('pattern')">
+          Please enter valid email
+        </small>
       </div>
     </div>
-    <div class="form-group col-md-6 col-lg-6 clearfix">
+    <div class="form-group col-md-6 col-lg-6 clearfix"
+    [ngClass]="customerForm.controls['vehicleMake'].hasError('required') && customerForm.get('vehicleMake').touched ? 'has-danger' : ''"
+    >
       <label for="make">Make</label>
-      <select required class="form-control" name="vehicleMake" formControlName="vehicleMake" (change)="selectModels($event.target.value)">
+      <small class="text-danger float-xs-right" *ngIf="customerForm.controls['vehicleMake'].hasError('required') && customerForm.get('vehicleMake').touched">
+        Please select vehicle make
+      </small>
+      <select required class="form-control" name="vehicleMake" [(ngModel)]="vehicleMake" formControlName="vehicleMake" (change)="selectModels($event.target.value)">
         <option [ngValue]="make" *ngFor="let make of uniqueMake()">{{make}}</option>
       </select>
     </div>
-    <div class="form-group col-md-6 col-lg-6 clearfix">
+    <div class="form-group col-md-6 col-lg-6 clearfix"
+    [ngClass]="customerForm.controls['vehicleModel'].hasError('required') && customerForm.get('vehicleModel').touched ? 'has-danger' : ''"
+    >
       <label for="model">Model</label>
+      <small class="text-danger float-xs-right" *ngIf="customerForm.controls['vehicleModel'].hasError('required') && customerForm.get('vehicleModel').touched">
+        Please select vehicle model
+      </small>
       <select required class="form-control" name="vehicleModel" formControlName="vehicleModel" (change)="selectYears($event.target.value)">
         <option [ngValue]="model" *ngFor="let model of uniqueModels()">{{model}}</option>
       </select>
     </div>
-    <div class="form-group col-md-6 col-lg-6 clearfix marginbottom">
+    <div class="form-group col-md-6 col-lg-6 clearfix marginbottom"
+    [ngClass]="customerForm.controls['vehicleYear'].hasError('required') && customerForm.get('vehicleYear').touched ? 'has-danger' : ''"
+    >
       <label for="year">Year</label>
+      <small class="text-danger float-xs-right" *ngIf="customerForm.controls['vehicleYear'].hasError('required') && customerForm.get('vehicleYear').touched">
+        Please select vehicle year
+      </small>
       <select required class="form-control " name="vehicleYear" formControlName="vehicleYear">
         <option [ngValue]="vehicle.year" *ngFor="let vehicle of years">{{vehicle.year}}</option>
       </select>
     </div>
-    <div class="form-group col-md-6 col-lg-6 clearfix marginbottom">
+    <div class="form-group col-md-6 col-lg-6 clearfix marginbottom"
+    [ngClass]="customerForm.controls['fuelType'].hasError('required') && customerForm.get('fuelType').touched ? 'has-danger' : ''"
+    >
       <label for="type">Fuel Type</label>
+      <small class="text-danger float-xs-right" *ngIf="customerForm.controls['fuelType'].hasError('required') && customerForm.get('fuelType').touched">
+        Please select fuel type
+      </small>
       <select required class="form-control" name="fuelType" formControlName="fuelType">
         <option value="Regular">Regular</option>
         <option value="Premium">Premium</option>
@@ -63,8 +101,16 @@
       <label for="name" class="col-sm-4 col-md-3 col-lg-3 form-control-label formlabel">
         Vehicle Plate
       </label>
-      <div class="col-sm-8 col-md-9 col-lg-9">
+      <div class="col-sm-8 col-md-9 col-lg-9"
+      [ngClass]="customerForm.controls['vehiclePlate'].hasError('required') && customerForm.get('vehiclePlate').touched ? 'has-danger' : ''"
+      >
         <input required type="text" name="vehiclePlate" formControlName="vehiclePlate" class="form-control" placeholder="Enter your vehicle plate">
+        <small class="text-danger" *ngIf="customerForm.controls['vehiclePlate'].hasError('required') && customerForm.get('vehiclePlate').touched">
+          Please enter vehicle plate
+        </small>
+        <small class="text-danger" *ngIf="customerForm.controls['vehiclePlate'].hasError('pattern')">
+          Please enter valid vehicle plate
+        </small>
         <input type="hidden" name="requestStatus" formControlName="requestStatus"/>
       </div>
     </div>
@@ -72,6 +118,3 @@
     <button [disabled]="customerForm.invalid" type="submit" class="btn btn-primary float-xs-right col-xs-12 col-md-4">Send Request</button>
   </div>
 </form>
-<br />
-<br />
-<br />

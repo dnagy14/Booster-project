@@ -2,6 +2,13 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.css'
 @import '../node_modules/font-awesome/css/font-awesome.css'
 
+$loader-dots-size: 20px
+
+.nav-item
+  a.active
+    background: #eee
+    color: #23527c
+
 .paddingtop
   padding-top: 20px
 
@@ -21,10 +28,16 @@
 .reqform
   padding-top: 30px
   padding-bottom: 30px
-  box-shadow: 3px 3px 3px 0px #ccc
+  margin-bottom: 50px
+  box-shadow: 2px 2px 2px 0px #dadada
+  border: 1px solid #eee
 
 .tablescroll
-  overflow: scroll
+  @media screen and (max-width: 1200px)
+    overflow: scroll
+
+  @media screen and (max-width: 633px)
+    width: 100%
 
 .tag-active
   background: #0275d8
@@ -42,4 +55,55 @@
   margin-bottom: 30px
 
 .paddingbottom
-  margin-bottom: 30px
+  margin-bottom: 20px
+
+.loading
+  height: 100vh
+
+.loader-container
+  position: relative
+  top: 50%
+  transform: translateY(-50%)
+
+.loader
+  height: 20px
+  width: 3.8em
+  position: relative
+  left: 50%
+  transform: translateX(-50%)
+  font-size: $loader-dots-size
+
+  &__dot
+    position: absolute
+    width: 0.5em
+    height: 0.5em
+    border-radius: 50%
+    background: #337ab7
+    animation-name: loader-wave
+    animation-duration: 1.8s
+    animation-iteration-count: infinite
+
+    &--1
+      left: 1em
+      animation-delay: 200ms
+
+    &--2
+      left: 2em
+      animation-delay: 400ms
+
+    &--3
+      left: 3em
+      animation-delay: 600ms
+
+@keyframes loader-wave
+  0%
+    transform: translateY(0)
+  20%
+    transform: translateY(-0.5em)
+  40%
+    transform: translateY(0)
+  100%
+    transform: translateY(0)
+
+.loading-text
+  letter-spacing: 5px
