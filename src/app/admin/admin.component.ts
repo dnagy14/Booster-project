@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { AdminFilterComponent} from './admin-filter/admin-filter.component';
+import { FilterListService } from '../Shared/filter-list.service';
 
 @Component({
   selector: 'app-admin',
@@ -12,10 +13,11 @@ import { AdminFilterComponent} from './admin-filter/admin-filter.component';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private filterlistService:FilterListService) { }
 
   ngOnInit() {
-
+    this.filterlistService.sendInputValue('');
+    this.filterlistService.sendSelectValue('');
   }
 
 }

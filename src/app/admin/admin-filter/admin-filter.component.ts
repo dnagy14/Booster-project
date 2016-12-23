@@ -15,6 +15,7 @@ export class AdminFilterComponent implements OnInit {
    }
 
   ngOnInit() {
+
   }
 
   onKeyUp(value) {

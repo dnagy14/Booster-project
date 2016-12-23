@@ -52,11 +52,16 @@ export class AdminListComponent implements OnInit {
   }
 
   getSearchValue() {
+    console.log (this.filterlistService.getInputValue());
     return this.filterlistService.getInputValue();
   }
 
   getSelectValue() {
     return this.filterlistService.getSelectValue();
   }
+
+  // resetStatus(
+  //   // this.filterlistService.
+  // )
 
 }
