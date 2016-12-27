@@ -72,12 +72,15 @@ export class CustomerComponent implements OnInit {
       (res) => {
         // console.log('Request sent!');
         //  console.log(res);
+        this.customerForm.reset();
+        this.notificationService.newAlert('info', 'Request sent');
       }, (err) => {
         //  console.error(err);
+        this.customerForm.reset();
+        this.notificationService.newAlert('danger', 'Request error');
       }
     );
-    this.customerForm.reset();
-    this.notificationService.newAlert('info', 'Request sent');
+
   }
 
   uniqueMake() {

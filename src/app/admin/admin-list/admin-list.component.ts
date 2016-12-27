@@ -28,7 +28,7 @@ export class AdminListComponent implements OnInit {
       (res) => {
         this.requests = res;
       }, (err) => {
-        console.error(err);
+        // console.error(err);
       }
     );
   }
@@ -52,7 +52,6 @@ export class AdminListComponent implements OnInit {
   }
 
   getSearchValue() {
-    console.log (this.filterlistService.getInputValue());
     return this.filterlistService.getInputValue();
   }
 
