@@ -38,17 +38,18 @@ export class AdminListComponent implements OnInit {
     this.apiService.update(request.id, request).subscribe(
       (res) => {
         // console.log(res);
+        switch (status) {
+          case 'COMPLETED':
+            this.notificationService.newAlert('success', 'Request completed');
+            break;
+          default:
+            this.notificationService.newAlert('danger', 'Request cancelled');
+        }
       }, (err) => {
         //  console.error(err);
+        this.notificationService.newAlert('danger', 'Status change error');
       }
     );
-    switch (status) {
-      case 'COMPLETED':
-        this.notificationService.newAlert('success', 'Request completed');
-        break;
-      default:
-        this.notificationService.newAlert('danger', 'Request cancelled');
-    }
   }
 
   getSearchValue() {
@@ -58,9 +59,5 @@ export class AdminListComponent implements OnInit {
   getSelectValue() {
     return this.filterlistService.getSelectValue();
   }
-
-  // resetStatus(
-  //   // this.filterlistService.
-  // )
 
 }
